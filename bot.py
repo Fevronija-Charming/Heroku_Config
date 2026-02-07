@@ -101,8 +101,8 @@ class AdminControl(BaseMiddleware):
 from sqlalchemy import  DateTime, String, Float, Column, Integer, func,Text
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
-engine = create_async_engine(os.getenv("DBURL"),echo=True,max_overflow=5)
-session_factory = async_sessionmaker(bind=engine,class_=AsyncSession,expire_on_commit=False)
+# engine = create_async_engine(os.getenv("DBURL"),echo=True,max_overflow=5)
+# session_factory = async_sessionmaker(bind=engine,class_=AsyncSession,expire_on_commit=False)
 class Base(DeclarativeBase):
     pass
 class Platoky(Base):
@@ -1344,8 +1344,9 @@ async def kostily_BD(bot:Bot):
             connection.close()
 async def on_startup(bot:Bot):
     await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="Готова, мой Господин!")
-    await kostily_BD(Bot)
-    await create_platky()
+    await bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=os.getenv('AVATARPHOTOID'))
+    #await kostily_BD(Bot)
+    #await create_platky()
 #БЕЗ ЗАЙЦА
 #async def main():
     #async with broker:
