@@ -1182,7 +1182,7 @@ async def vvod_nazvanija_platka(message: types.Message):
         connection.close()
         connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), user=os.getenv("DBUSERNAME"),
                                 password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
-        # создание интерфейса для sql запроса
+        # 123 создание интерфейса для sql запроса
         cursor = connection.cursor()
         zapros = "SELECT * FROM ПППЛАТКИ WHERE Узор_сердцевины = %s ORDER BY ID ASC;"
         cursor.execute(zapros, (dannye40,))
