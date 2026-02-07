@@ -1347,8 +1347,8 @@ async def kostily_BD(bot:Bot):
 async def on_startup(bot:Bot):
     await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="Готова, мой Господин!")
     await bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=os.getenv('AVATARPHOTOID'))
-    await kostily_BD(Bot)
-    await create_platky()
+    #await kostily_BD(Bot)
+    #await create_platky()
 #БЕЗ ЗАЙЦА
 #async def main():
     #async with broker:
