@@ -179,11 +179,11 @@ unikalnost=0
 Bot = Bot(token=os.getenv('TOKEN'))
 # это обьект для обработки сообщений
 dp=Dispatcher()
-broker=RabbitBroker(url="amqp://guest:guest@localhost:5672/")
-@broker.subscriber("PLATOKY")
-async def get_platky_fromFASTAPI(data: str):
-    await Bot.send_message(chat_id=os.getenv('MYUSERID'), text='Добавлен новый платок')
-    await Bot.send_message(chat_id=os.getenv('MYUSERID'),text=data)
+#broker=RabbitBroker(url="amqp://guest:guest@localhost:5672/")
+#@broker.subscriber("PLATOKY")
+#async def get_platky_fromFASTAPI(data: str):
+    #await Bot.send_message(chat_id=os.getenv('MYUSERID'), text='Добавлен новый платок')
+    #await Bot.send_message(chat_id=os.getenv('MYUSERID'),text=data)
 dp.message.middleware(AdminControl(Bot))
 dp.message.middleware(RezimRabotyAdmina(Bot))
 # клавы из файла классов
@@ -1346,9 +1346,16 @@ async def on_startup(bot:Bot):
     await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="Готова, мой Господин!")
     await kostily_BD(Bot)
     await create_platky()
-async def main():
-    async with broker:
-        await broker.start()
+#БЕЗ ЗАЙЦА
+#async def main():
+    #async with broker:
+        #await broker.start()
+        #init(autoreset=True)
+        #dp.startup.register(on_startup)
+        #await Bot.set_my_commands(commands=private, scope=types.BotCommandScopeAllPrivateChats())
+        #await Bot.delete_webhook(drop_pending_updates=True)
+        #await dp.start_polling(Bot)
+async def main():    
         init(autoreset=True)
         dp.startup.register(on_startup)
         await Bot.set_my_commands(commands=private, scope=types.BotCommandScopeAllPrivateChats())
