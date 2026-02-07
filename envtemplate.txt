@@ -7,5 +7,5 @@ DBUSERNAME=postgres
 DBHOST=localhost
 DBNAMEOLD=postgres
 DBPORT=5432
-BOTID=8357652461
-AVATARPHOTOID=AgACAgQAAxkBAAIQImlgSbi7gu8KLW2NjRVuu8O1jpbkAAIaC2sbgg0JU9OZL7E089ntAQADAgADeQADOAQ
+BOTID= your bot id
+AVATARPHOTOID=avatar photo id from telegram server 84 digits
