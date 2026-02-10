@@ -594,12 +594,12 @@ async def zapis(message: types.Message):
     global upomjanutye_platki
     await message.answer(text="Проверка наличия валидации данных")
     if pokazatel_validacii == 0:
-        await message.answer(text="Данные не прошли проверку, пожалуйста, проведите проверку буфера",reply_markup=klava_admina)
+        await message.answer(text="Данные не прошли проверку, пожалуйста, проведите проверку буфера",reply_markup=klava_admina_glav)
     await message.answer(text="Проверка целостности данных")
     if len(platok_infa) < 2:
-        await message.answer(text="Данные повреждены",reply_markup=klava_admina)
+        await message.answer(text="Данные повреждены",reply_markup=klava_admina_glav)
     elif platok_infa[1] in upomjanutye_platki:
-        await message.answer(text="Такой платок уже есть", reply_markup=klava_admina)
+        await message.answer(text="Такой платок уже есть", reply_markup=klava_admina_glav)
         unikalnost = 0
     else:
         await message.answer(text="Это уникальный платок, проивожу запись")
@@ -626,7 +626,7 @@ async def zapis(message: types.Message):
         cursor.close()
         connection.close()
         print('Вставка выполнена, моя Госпожа!')
-        await message.answer(text='Вставка выполнена, моя Госпожа!',reply_markup=klava_admina)
+        await message.answer(text='Вставка выполнена, моя Госпожа!',reply_markup=klava_admina_glav)
 @dp.message((F.text.lower()=="/prov_dannyh"))
 @dp.message((F.text.lower()=="проверка буфера"))
 async def validacija(message: types.Message):
@@ -652,14 +652,14 @@ async def smotr_dannyh(message: types.Message):
     print("Смотр Данных")
     if len(platok_infa) == 0:
         print("Буфер пуст")
-        await message.answer("Нет данных для показза, Госпожа")
+        await message.answer("Нет данных для показза, Госпожа",reply_markup=klava_admina_glav)
     else:
         for i in range(len(platok_infa)):
             soobsenie=platok_infa[i]
             await message.answer(text=f"{soobsenie}")
             print(f"{soobsenie}")
         print("Вот данные, Госпожа")
-        await message.answer(text="Вот данные, Госпожа")
+        await message.answer(text="Вот данные, Госпожа",reply_markup=klava_admina_glav)
 @dp.message((F.text.lower()=="/vvod_dannyh"))
 @dp.message((F.text.lower()=="ввод данных"))
 async def vvod_dannyh_platka(message: types.Message):
@@ -798,7 +798,7 @@ async def vvod_nazvanija_platka(message: types.Message):
         dannye21 = message.text
         platok_infa.append(dannye21)
         print(dannye21)
-        await message.answer(text="Данные о платке записаны",reply_markup=klava_admina)
+        await message.answer(text="Данные о платке записаны",reply_markup=klava_admina_glav)
         signal=0
     elif message and signal == 32:
         dannye32 =message.text
