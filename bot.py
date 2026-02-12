@@ -156,6 +156,22 @@ class Tradicii(Base):
     Способ_закрепления_платка_2: Mapped[str] = mapped_column(String(128), nullable=False)
     Этническая_классификация: Mapped[str] = mapped_column(String(128), nullable=False)
     Географическое_распространение: Mapped[str] = mapped_column(Text, nullable=False)
+class Banda(Base):
+    __tablename__="Платочная_Банда"
+    id: Mapped[int]=mapped_column(primary_key=True, autoincrement=True, nullable=False)
+    Гражданское_Имя: Mapped[str]=mapped_column(String(128), nullable=False)
+    Творческий_Псевдоним: Mapped[str]=mapped_column(String(128), nullable=False)
+    Описание_Творческой_Деятельности: Mapped[str]=mapped_column(Text, nullable=False)
+    Связь_Творчества_С_Павлопосадскими_Платками: Mapped[str] = mapped_column(Text, nullable=False)
+    Ссылка_На_Инстаграм: Mapped[str] = mapped_column(String(128), nullable=False)
+    Ссылка_На_ВК: Mapped[str] = mapped_column(String(128), nullable=False)
+    Ссылка_На_Ютуб: Mapped[str] = mapped_column(String(128), nullable=False)
+    Ссылка_На_Фейсбук: Mapped[str] = mapped_column(String(128), nullable=False)
+    Ссылка_На_Телеграм: Mapped[str] = mapped_column(String(128), nullable=False)
+    Ссылка_На_Одноклассники: Mapped[str] = mapped_column(String(128), nullable=False)
+    Ссылка_На_Яндекс_Дзен: Mapped[str] = mapped_column(String(128), nullable=False)
+    Ссылка_На_Сайт: Mapped[str] = mapped_column(String(128), nullable=False)
+    Адрес_Деятельности: Mapped[str] = mapped_column(String(128), nullable=False)
 async def create_platky():
     async with engine.begin() as connection:
         await connection.run_sync(Base.metadata.create_all)
