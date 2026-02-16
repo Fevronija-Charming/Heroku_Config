@@ -547,37 +547,42 @@ async def poisk_bahromi(message: types.Message):
     await message.answer(text="""Назовите материал бахромы, который необходимо найти, если необходимо найти платки без бахромы, в строке поиска напишите 'Нет' """)
     signal = 37
 @dp.message((F.text.lower()=="/poisk_razmera"))
-@dp.message((F.text.lower()=="размер"))
+@dp.message((F.text.lower()=="размер платка"))
 async def poisk_razmera(message: types.Message):
     global signal
     await message.answer(text="Произвожу поиск по размеру платка")
     await message.answer(text="Напишите интересующий Вас размер платка")
     signal = 38
 @dp.message((F.text.lower()=="/poisk_struktura_uzora"))
+@dp.message((F.text.lower()=="структура орнамента"))
 async def struktura_uzora(message: types.Message):
     global signal
     await message.answer(text="Произвожу поиск по структуре узора платка")
     await message.answer(text="Напишите интересующую Вас структуру узора на платке")
     signal = 39
 @dp.message((F.text.lower()=="/poisk_uzora_temeni"))
+@dp.message((F.text.lower()=="узор темени"))
 async def uzor_temeni(message: types.Message):
     global signal
     await message.answer(text="Произвожу поиск по узору на теменной области платка")
     await message.answer(text="Напишите нужный Вам узор, изображённый на теменной области платка")
     signal = 40
 @dp.message((F.text.lower()=="/poisk_uzora_cerdceviny"))
+@dp.message((F.text.lower()=="узор сердцевины"))
 async def uzor_temeni(message: types.Message):
     global signal
     await message.answer(text="Произвожу поиск по узору на сердцевинной области платка")
     await message.answer(text="Напишите нужный Вам узор, изображённый на сердцевинной области платка")
     signal = 41
 @dp.message((F.text.lower()=="/poisk_uzora_storon"))
+@dp.message((F.text.lower()=="узор сторон"))
 async def uzor_temeni(message: types.Message):
     global signal
     await message.answer(text="Произвожу поиск по узору на области сторон платка")
     await message.answer(text="Напишите нужный Вам узор, изображённый на области сторон платка")
     signal = 42
 @dp.message((F.text.lower()=="/poisk_uzora_uglov"))
+@dp.message((F.text.lower()=="узор углов"))
 async def uzor_temeni(message: types.Message):
     global signal
     await message.answer(text="Произвожу поиск по узору на области углов платка")
@@ -643,6 +648,11 @@ async def zapis(message: types.Message):
         connection.close()
         print('Вставка выполнена, моя Госпожа!')
         await message.answer(text='Вставка выполнена, моя Госпожа!',reply_markup=klava_admina_glav)
+        id_zapisi=id_zapisi+1
+        platok_infa.clear()
+        unikalnost=0
+        pokazatel_validacii=0
+        upomjanutye_platki.clear()        
 @dp.message((F.text.lower()=="/prov_dannyh"))
 @dp.message((F.text.lower()=="проверка буфера"))
 async def validacija(message: types.Message):
