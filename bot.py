@@ -172,6 +172,19 @@ class Banda(Base):
     Ссылка_На_Яндекс_Дзен: Mapped[str] = mapped_column(String(128), nullable=False)
     Ссылка_На_Сайт: Mapped[str] = mapped_column(String(128), nullable=False)
     Адрес_Деятельности: Mapped[str] = mapped_column(String(128), nullable=False)
+class Symboly(Base):
+    __tablename__="Значение_Символов_Орнамента"
+    id: Mapped[int]=mapped_column(primary_key=True, autoincrement=True, nullable=False)
+    Название_Символа: Mapped[str]=mapped_column(String(32), nullable=False)
+    Значение_Символа: Mapped[str]=mapped_column(Text, nullable=False)
+    Встречается_На_Платках: Mapped[str]=mapped_column(Text, nullable=False)
+    Ассоциативная_Иллюстрация_1: Mapped[str] = mapped_column(String(128), nullable=False)
+    Ассоциативная_Иллюстрация_2: Mapped[str] = mapped_column(String(128), nullable=False)
+    Символ_На_Платке_1: Mapped[str] = mapped_column(String(128), nullable=False)
+    Символ_На_Платке_2: Mapped[str] = mapped_column(String(128), nullable=False)
+    Символ_На_Платке_3: Mapped[str] = mapped_column(String(128), nullable=False)
+    Символ_На_Платке_4: Mapped[str] = mapped_column(String(128), nullable=False)
+    Символ_На_Платке_5: Mapped[str] = mapped_column(String(128), nullable=False)
 async def create_platky():
     async with engine.begin() as connection:
         await connection.run_sync(Base.metadata.create_all)
