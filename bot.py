@@ -103,7 +103,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 engine = create_async_engine(os.getenv("DBURL"),echo=True,max_overflow=5)
 session_factory = async_sessionmaker(bind=engine,class_=AsyncSession,expire_on_commit=False)
-from datamodels import Platoky,Tradicii,Banda,Symboly
+from datamodels import Platoky,Tradicii,Banda,Symboly,Base
 async def create_platky():
     async with engine.begin() as connection:
         await connection.run_sync(Base.metadata.create_all)
