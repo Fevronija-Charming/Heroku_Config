@@ -794,8 +794,8 @@ async def vvod_nazvanija_platka(message: types.Message):
         while True:
             next_row=cursor.fetchone()
             if next_row:
-                for element, segment in next_row, platok_predstav:
-                    await message.answer(text=f"{segment}{element}")
+                for element, segment in zip(platok_predstav, next_row):
+                    await message.answer(text=f"{element}{segment}")
             else:
                 break
         # синхронизация изменений, комит версии
