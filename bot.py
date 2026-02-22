@@ -796,7 +796,7 @@ async def vvod_nazvanija_platka(message: types.Message):
             if next_row:
                 for element, segment in zip(platok_predstav, next_row):
                     platok_dannye = []
-                    platok_rjad= element + "" + segment
+                    platok_rjad= element + "" + str(segment)
                     platok_dannye.append(platok_rjad)
                 await message.answer(text=f"{platok_dannye}")
             else:
@@ -1311,7 +1311,7 @@ async def kostily_BD(bot:Bot):
         if connection:
             connection.close()
 async def on_startup(bot:Bot):
-    await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="Готова, мой Господин!")
+    await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="Готова, мой Господин!",reply_markup=klava_privetstvije)
     await bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=os.getenv('AVATARPHOTOID'))
     #await kostily_BD(Bot)
     await create_platky()
