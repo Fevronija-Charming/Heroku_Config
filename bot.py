@@ -794,9 +794,8 @@ async def vvod_nazvanija_platka(message: types.Message):
         while True:
             next_row=cursor.fetchone()
             if next_row:
-                for element, segment in zip(platok_predstav, next_row):
-                    platok_dannye = []
-                    platok_rjad= element + "" + str(segment)
+                for i in range(len(next_row)):
+                    platok_rjad=platok_predstav[i]+ "" + next_row[i] 
                     platok_dannye.append(platok_rjad)
                 await message.answer(text=f"{platok_dannye}")
             else:
