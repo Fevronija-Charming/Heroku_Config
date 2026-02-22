@@ -2,7 +2,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 klava_privetstvije=ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text="поиск по техническим харак.")],
     [KeyboardButton(text="поиск по худож. харак.")],
-    [KeyboardButton(text="список доступных команд")],
+    [KeyboardButton(text="значение символов на платке")],
     [KeyboardButton(text="о создателе Февронии")],
     [KeyboardButton(text="учебные пособия по платкам")],
     [KeyboardButton(text="участники платочной банды")],
@@ -71,3 +71,11 @@ klava_admina_uroki=ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text="запись данных"),KeyboardButton(text="удаление строки")],
     [KeyboardButton(text="проверка буфера"),KeyboardButton(text="выход")]],
     resize_keyboard=True,input_field_placeholder="Что хотите сделать?")
+klava_symboly=ReplyKeyboardMarkup(keyboard=[
+    [KeyboardButton(text="КВАДРАТ")],
+    [KeyboardButton(text="РОМБ")],
+    [KeyboardButton(text="ВОСЬМИУГОЛЬНИК")],
+    [KeyboardButton(text="КРУГ")],
+    [KeyboardButton(text="ДРУГИЕ СИМВОЛЫ")],
+    [KeyboardButton(text="выход")]],
+    resize_keyboard=True,input_field_placeholder="Значение какого символа хотите узнать")
