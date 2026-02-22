@@ -377,7 +377,7 @@ async def proverka_tradicii(message: types.Message):
 @dp.message((F.text.lower() == "значение символов на платке"))
 @dp.message((F.text.lower()=="/poisk_autora"))
 async def otrisovka_symbola1(message: types.Message):
-    await message.answer(text="Выбран сегмент символов на платке", reply_markup=ReplyKeyboardRemove())
+    await message.answer(text="Выбран сегмент символов на платке", reply_markup=klava_symboly)
 @dp.message(or_f((Command("glav_poisk")),(F.text.lower()=="поиск по техническим харак."),(F.text.lower()=="основной")))
 async def poisk1(message: types.Message):
     await message.answer(text="Поиск1",reply_markup=klava_poisk1)
@@ -795,7 +795,10 @@ async def vvod_nazvanija_platka(message: types.Message):
             next_row=cursor.fetchone()
             if next_row:
                 for element, segment in zip(platok_predstav, next_row):
-                    await message.answer(text=f"{element}{segment}")
+                    platok_dannye = []
+                    platok_rjad= element + "" + segment
+                    platok_dannye.append(platok_rjad)
+                await message.answer(text=f"{platok_dannye}")
             else:
                 break
         # синхронизация изменений, комит версии
