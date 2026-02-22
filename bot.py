@@ -796,7 +796,7 @@ async def vvod_nazvanija_platka(message: types.Message):
             if next_row:
                 platok_dannye = []
                 for i in range(len(platok_predstav)):
-                    platok_rjad=platok_predstav[i]+ "" + str(next_row[i]) 
+                    platok_rjad=platok_predstav[i]+ " " + str(next_row[i]) 
                     platok_dannye.append(platok_rjad)
                 await message.answer(text=f"{platok_dannye}")
             else:
