@@ -79,3 +79,11 @@ klava_symboly=ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text="ДРУГИЕ СИМВОЛЫ")],
     [KeyboardButton(text="выход")]],
     resize_keyboard=True,input_field_placeholder="Значение какого символа хотите узнать")
+klava_symboly2=ReplyKeyboardMarkup(keyboard=[
+    [KeyboardButton(text="ПРЯМОЙ КРЕСТ")],
+    [KeyboardButton(text="КОСОЙ КРЕСТ")],
+    [KeyboardButton(text="АЛАТЫРЬ")],
+    [KeyboardButton(text="ЛУННИЦА")],
+    [KeyboardButton(text="ДРУГИЕ СИМВОЛЫ")],
+    [KeyboardButton(text="выход")]],
+    resize_keyboard=True,input_field_placeholder="Значение какого символа хотите узнать")

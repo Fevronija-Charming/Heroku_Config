@@ -137,6 +137,7 @@ dp.message.middleware(RezimRabotyAdmina(Bot))
 # клавы из файла классов
 from klaviatury import klava_poisk1, klava_poisk2, klava_kolorit, klava_posobiy, klava_material, klava_bahroma,klava_symboly
 from klaviatury import klava_admina_uroki, klava_admina_platki, klava_admina_glav,klava_admina_materialy, klava_privetstvije
+from klaviatury import klava_symboly2
 from templates import platok_predstav
 # костыль для получения id фото в системе тг
 class Vvod_Foto(StatesGroup):
@@ -375,9 +376,30 @@ async def proverka_tradicii(message: types.Message):
         await message.answer(text="Нечего проверять, сначала введите запись в буфер")
 # логика основных команд по ключевым словам
 @dp.message((F.text.lower() == "значение символов на платке"))
-@dp.message((F.text.lower()=="/poisk_autora"))
 async def otrisovka_symbola1(message: types.Message):
     await message.answer(text="Выбран сегмент символов на платке", reply_markup=klava_symboly)
+@dp.message((F.text.lower() == "другие символы"))
+async def otrisovka_symbola1(message: types.Message):
+    await message.answer(text="Вот продолжение сегмента символов на платке", reply_markup=klava_symboly2)
+@dp.message(or_f((F.text.lower()=="восьмиугольник"),(F.text.lower()=="квадрат"),(F.text.lower()=="ромб"),(F.text.lower()=="круг")))
+async def znachenije_symbola1(message: types.Message):
+    symbol = message.text
+    connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), user=os.getenv("DBUSERNAME"),
+                            password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
+    # создание интерфейса для sql запроса
+    cursor = connection.cursor()
+    zapros = "SELECT * FROM Значение_Символов_Орнамента WHERE Название_Символа=%s ;"
+    # отправить запрос системе управления
+    cursor.execute(zapros, (symbol,))
+    row = cursor.fetchone()
+    if row:
+        await message.answer(text="Вот сведения по значению данного символа")
+        await message.answer(text=f"{row}")
+    else:
+        await message.answer(text="Данного символа в базе не обнаружено")
+    # закрытие соединенмя с ДБ для безопасности
+    cursor.close()
+    connection.close()
 @dp.message(or_f((Command("glav_poisk")),(F.text.lower()=="поиск по техническим харак."),(F.text.lower()=="основной")))
 async def poisk1(message: types.Message):
     await message.answer(text="Поиск1",reply_markup=klava_poisk1)
@@ -766,10 +788,8 @@ async def vvod_nazvanija_platka(message: types.Message):
     elif message and signal == 32:
         dannye32 =message.text
         signal=0
-        # создание интерфейса для sql запроса
-        import psycopg2 as ps
-        connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), user=os.getenv("DBUSERNAME"),
-                                password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
+        # создание инте
+        # password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
         # создание интерфейса для sql запроса
         cursor = connection.cursor()
         zapros="SELECT * FROM ПППЛАТКИ WHERE Автор = %s ORDER BY ID ASC;"
