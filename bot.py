@@ -14,7 +14,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemo
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 import psycopg2 as ps
-import datetime
+import datetime, time
 from colorama import *
 from faststream.rabbit import RabbitBroker 
 # конфигурация команд в меню привествия
