@@ -372,7 +372,7 @@ async def zapis_otzyva2(message: types.Message, state: FSMContext):
         await state.set_state(Otzyv.TextOtzyva)
 @dp.message(Otzyv.TextOtzyva, F.text)
 async def zapis_otzyva3(message: types.Message, state: FSMContext):
-        tochnoje_vremja = str(datetime.now())
+        tochnoje_vremja = str(datetime.datetime.now())
         vremja_format=tochnoje_vremja[:-10]
         sekundi = int(time.time())
         await state.update_data(text_otzyva=message.text)
