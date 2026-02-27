@@ -358,7 +358,7 @@ async def proverka_tradicii(message: types.Message):
 # логика основных команд по ключевым словам
 @dp.message((F.text.lower() == "оставить отзыв о приложении"))
 async def zapis_otzyva(message: types.Message, state: FSMContext):
-    id_polzak=message.from_user.id()
+    id_polzak=message.from_user.id
     await message.answer(text="Пожалуйста, представьтесь", reply_markup=ReplyKeyboardRemove())
     await message.answer(text="Напишите Ваше имя или ник")
     await state.set_state(Otzyv.AvtorOtzyva)
