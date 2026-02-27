@@ -373,7 +373,7 @@ async def zapis_otzyva2(message: types.Message, state: FSMContext):
 @dp.message(Otzyv.TextOtzyva, F.text)
 async def zapis_otzyva3(message: types.Message, state: FSMContext):
         tochnoje_vremja = str(datetime.datetime.now())
-        vremja_format=tochnoje_vremja[:-17]
+        vremja_format=tochnoje_vremja[:-10]
         sekundi = int(time.time())
         await state.update_data(text_otzyva=message.text)
         await message.answer(text="Спасибо за ващ отзыв, отреагируем на него в ближайшее время")
@@ -381,12 +381,14 @@ async def zapis_otzyva3(message: types.Message, state: FSMContext):
         otzyv_eksemp=Otzyvy(Индефикатор_Автора=svedenija.get("id_polzak",None), 
     Автор_Отзыва=svedenija.get("imja_avtr_polz",None), 
     Текст_Отзыва=svedenija.get("text_otzyva",None),
-    Время_Записи_Отзыва=tochnoje_vremja,
+    Время_Записи_Отзыва=vremja_format,
     Секунды_Записи_Отзыва=sekundi)
         session = session_factory()
         session.add(otzyv_eksemp)
         await session.commit()
         await message.answer(text="DB OK")
+        await session.close()
+        await state.clear()
 # логика основных команд по ключевым словам
 @dp.message((F.text.lower() == "значение символов на платке"))
 async def otrisovka_symbola1(message: types.Message):
