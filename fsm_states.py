@@ -20,3 +20,6 @@ class Vvod_TradNosh(StatesGroup):
     Kreplenije2=State()
     EtnoGrafPrin=State()
     GeografPrin=State()
+class Otzyv(StatesGroup):
+    AvtorOtzyva=State()
+    TextOtzyva=State()

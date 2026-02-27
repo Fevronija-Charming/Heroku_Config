@@ -6,7 +6,7 @@ klava_privetstvije=ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text="о создателе Февронии")],
     [KeyboardButton(text="учебные пособия по платкам")],
     [KeyboardButton(text="участники платочной банды")],
-    [KeyboardButton(text="жалобная книга")],
+    [KeyboardButton(text="оставить отзыв о приложении")],
     [KeyboardButton(text="выход")]],
     resize_keyboard=True,input_field_placeholder="Что хотите сделать, мой Господин?")
 klava_poisk1=ReplyKeyboardMarkup(keyboard=[

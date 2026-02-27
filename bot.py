@@ -103,7 +103,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 engine = create_async_engine(os.getenv("DBURL"),echo=True,max_overflow=5)
 session_factory = async_sessionmaker(bind=engine,class_=AsyncSession,expire_on_commit=False)
-from datamodels import Platoky,Tradicii,Banda,Symboly,Base
+from datamodels import Platoky,Tradicii,Banda,Symboly,Base,Otzyvy
 async def create_platky():
     async with engine.begin() as connection:
         await connection.run_sync(Base.metadata.create_all)
@@ -138,6 +138,7 @@ dp.message.middleware(RezimRabotyAdmina(Bot))
 from klaviatury import klava_poisk1, klava_poisk2, klava_kolorit, klava_posobiy, klava_material, klava_bahroma,klava_symboly
 from klaviatury import klava_admina_uroki, klava_admina_platki, klava_admina_glav,klava_admina_materialy, klava_privetstvije
 from klaviatury import klava_symboly2
+from fsm_states import Otzyv, Vvod_TradNosh
 from templates import platok_predstav
 # костыль для получения id фото в системе тг
 class Vvod_Foto(StatesGroup):
@@ -156,27 +157,7 @@ async def FotoSsyla(message: types.Message, state: FSMContext):
 @dp.message((F.text.lower()=="ввести запись об уроке в буфер"))
 async def opred_nomer_uroka(message: types.Message):
     await message.answer(text="Определение занятия",reply_markup=klava_posobiy)
-class Vvod_TradNosh(StatesGroup):
-    nazvanijeTrd1=State()
-    nazvanijeTrd2 = State()
-    nazvanijeTrd3 = State()
-    FotoTrd1=State()
-    FotoTrd2=State()
-    FotoTrd3=State()
-    FotoTrd4=State()
-    FotoTrd5=State()
-    EtnoGrafOpis=State()
-    TehnicOpis=State()
-    VideoSylka1=State()
-    VideoSylka2 = State()
-    Prednaz1=State()
-    Prednaz2=State()
-    Nabrasyvanije1=State()
-    Nabrasyvanije2=State()
-    Kreplenije1=State()
-    Kreplenije2=State()
-    EtnoGrafPrin=State()
-    GeografPrin=State()
+from fsm_states import Vvod_TradNosh
 @dp.message((F.text.lower()=="традиции_ношения"))
 async def trad_noshen(message: types.Message, state: FSMContext):
     global rezim_raboty
@@ -375,13 +356,44 @@ async def proverka_tradicii(message: types.Message):
     else:
         await message.answer(text="Нечего проверять, сначала введите запись в буфер")
 # логика основных команд по ключевым словам
+@dp.message((F.text.lower() == "оставить отзыв о приложении"))
+async def zapis_otzyva(message: types.Message, state: FSMContext):
+    id_polzak=message.from_user.id()
+    await message.answer(text="Пожалуйста, представьтесь", reply_markup=ReplyKeyboardRemove())
+    await message.answer(text="Напишите Ваше имя или ник")
+    await state.set_state(Otzyv.AvtorOtzyva)
+    await state.update_data(id_polzak=id_polzak)
+@dp.message(Otzyv.AvtorOtzyva, F.text)
+async def zapis_otzyva2(message: types.Message, state: FSMContext):
+        await state.update_data(imja_avtr_polz=message.text)
+        await message.answer(text="Дайте оценку работе платочного бота. Напишите Вашу благодарность, жалобу на неисправность в работе.")
+        await message.answer(text="Предложения по развитию проекта также приветствуются.")
+        await state.set_state(Otzyv.TextOtzyva)
+@dp.message(Otzyv.TextOtzyva, F.text)
+async def zapis_otzyva3(message: types.Message, state: FSMContext):
+        tochnoje_vremja = str(datetime.now())
+        vremja_format=tochnoje_vremja[:-10]
+        sekundi = int(time.time())
+        await state.update_data(text_otzyva=message.text)
+        await message.answer(text="Спасибо за ващ отзыв, отреагируем на него в ближайшее время")
+        svedenija=await state.get_data()
+        otzyv_eksemp=Otzyvy(Индефикатор_Автора=svedenija.get("id_polzak",None), 
+    Автор_Отзыва=svedenija.get("imja_avtr_polz",None), 
+    Текст_Отзыва=svedenija.get("text_otzyva",None),
+    Время_Записи_Отзыва=tochnoje_vremja,
+    Секунды_Записи_Отзыва=sekundi)
+        session = session_factory()
+        session.add(otzyv_eksemp_eksemp)
+        await session.commit()
+        await message.answer(text="DB OK")
+# логика основных команд по ключевым словам
 @dp.message((F.text.lower() == "значение символов на платке"))
 async def otrisovka_symbola1(message: types.Message):
     await message.answer(text="Выбран сегмент символов на платке", reply_markup=klava_symboly)
 @dp.message((F.text.lower() == "другие символы"))
-async def otrisovka_symbola1(message: types.Message):
+async def otrisovka_symbola2(message: types.Message):
     await message.answer(text="Вот продолжение сегмента символов на платке", reply_markup=klava_symboly2)
-@dp.message(or_f((F.text.lower()=="восьмиугольник"),(F.text.lower()=="квадрат"),(F.text.lower()=="ромб"),(F.text.lower()=="круг")))
+@dp.message(or_f((F.text=="Восьмиугольник"),(F.text=="Квадрат"),(F.text=="Ромб"),(F.text.lower()=="Круг")))
 async def znachenije_symbola1(message: types.Message):
     symbol = message.text
     connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), user=os.getenv("DBUSERNAME"),

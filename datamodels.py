@@ -82,3 +82,11 @@ class Symboly(Base):
     Символ_На_Платке_3: Mapped[str] = mapped_column(String(128), nullable=False)
     Символ_На_Платке_4: Mapped[str] = mapped_column(String(128), nullable=False)
     Символ_На_Платке_5: Mapped[str] = mapped_column(String(128), nullable=False)
+class Otzyvy(Base):
+    __tablename__ = "Книга_Отзывов"
+    id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, nullable=False)
+    Индефикатор_Автора: Mapped[int] = mapped_column(nullable=False)
+    Автор_Отзыва: Mapped[str] = mapped_column(String(128), nullable=False)
+    Текст_Отзыва: Mapped[str]=mapped_column(Text, nullable=False)
+    Время_Записи_Отзыва: Mapped[int] = mapped_column(nullable=False)
+    Секунды_Записи_Отзыва: Mapped[int] = mapped_column(nullable=False)
