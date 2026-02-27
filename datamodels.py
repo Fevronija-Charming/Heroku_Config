@@ -88,5 +88,5 @@ class Otzyvy(Base):
     Индефикатор_Автора: Mapped[BIGINT] = mapped_column(BIGINT,nullable=False)
     Автор_Отзыва: Mapped[str] = mapped_column(String(128), nullable=False)
     Текст_Отзыва: Mapped[str]=mapped_column(Text, nullable=False)
-    Время_Записи_Отзыва: Mapped[int] = mapped_column(nullable=False)
+    Время_Записи_Отзыва: Mapped[str] = mapped_column(nullable=False)
     Секунды_Записи_Отзыва: Mapped[int] = mapped_column(nullable=False)

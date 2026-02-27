@@ -373,7 +373,7 @@ async def zapis_otzyva2(message: types.Message, state: FSMContext):
 @dp.message(Otzyv.TextOtzyva, F.text)
 async def zapis_otzyva3(message: types.Message, state: FSMContext):
         tochnoje_vremja = str(datetime.datetime.now())
-        vremja_format=tochnoje_vremja[:-10]
+        vremja_format=tochnoje_vremja[:-17]
         sekundi = int(time.time())
         await state.update_data(text_otzyva=message.text)
         await message.answer(text="Спасибо за ващ отзыв, отреагируем на него в ближайшее время")
