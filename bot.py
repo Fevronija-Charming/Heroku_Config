@@ -384,7 +384,7 @@ async def zapis_otzyva3(message: types.Message, state: FSMContext):
     Время_Записи_Отзыва=tochnoje_vremja,
     Секунды_Записи_Отзыва=sekundi)
         session = session_factory()
-        session.add(otzyv_eksemp_eksemp)
+        session.add(otzyv_eksemp)
         await session.commit()
         await message.answer(text="DB OK")
 # логика основных команд по ключевым словам
