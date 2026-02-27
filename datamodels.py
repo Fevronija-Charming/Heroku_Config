@@ -1,4 +1,4 @@
-from sqlalchemy import  DateTime, String, Float, Column, Integer, func,Text
+from sqlalchemy import DateTime, String, Float, Column, Integer, func, Text, BIGINT
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 class Base(DeclarativeBase):
     pass
@@ -85,7 +85,7 @@ class Symboly(Base):
 class Otzyvy(Base):
     __tablename__ = "Книга_Отзывов"
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True, nullable=False)
-    Индефикатор_Автора: Mapped[int] = mapped_column(nullable=False)
+    Индефикатор_Автора: Mapped[BIGINT] = mapped_column(BIGINT,nullable=False)
     Автор_Отзыва: Mapped[str] = mapped_column(String(128), nullable=False)
     Текст_Отзыва: Mapped[str]=mapped_column(Text, nullable=False)
     Время_Записи_Отзыва: Mapped[int] = mapped_column(nullable=False)
