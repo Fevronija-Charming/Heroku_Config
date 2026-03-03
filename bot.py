@@ -802,6 +802,9 @@ async def vvod_nazvanija_platka(message: types.Message):
         signal=0
     elif message and signal == 32:
         dannye32 =message.text
+        # импорт библиотеки для pq админ
+        import psycopg2 as ps
+        # создание подключения
         connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), 
         user=os.getenv("DBUSERNAME"),password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
         # создание интерфейса для sql запроса
