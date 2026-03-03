@@ -802,9 +802,8 @@ async def vvod_nazvanija_platka(message: types.Message):
         signal=0
     elif message and signal == 32:
         dannye32 =message.text
-        signal=0
-        # создание инте
-        # password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
+        connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), 
+        user=os.getenv("DBUSERNAME"),password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
         # создание интерфейса для sql запроса
         cursor = connection.cursor()
         zapros="SELECT * FROM ПППЛАТКИ WHERE Автор = %s ORDER BY ID ASC;"
@@ -815,8 +814,6 @@ async def vvod_nazvanija_platka(message: types.Message):
             await message.answer(text="Вот сведения по платкам данного автора")
         else:
             await message.answer(text="Такого автора нет")
-        # синхронизация изменений, комит версии
-        connection.commit()
         # закрытие соединенмя с ДБ для безопасности
         cursor.close()
         connection.close()
