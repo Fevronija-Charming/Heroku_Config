@@ -87,3 +87,7 @@ klava_symboly2=ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text="ДРУГИЕ СИМВОЛЫ")],
     [KeyboardButton(text="выход")]],
     resize_keyboard=True,input_field_placeholder="Значение какого символа хотите узнать")
+klava_banda=ReplyKeyboardMarkup(keyboard=[
+    [KeyboardButton(text="Ссылки на Youtube платочников/шалелюбушек")],
+    [KeyboardButton(text="Ссылки на VK платочников/шалелюбушек")],
+    [KeyboardButton(text="Ссылки на Instagram платочников/шалелюбушек")]])

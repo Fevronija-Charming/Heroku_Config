@@ -138,7 +138,7 @@ dp.message.middleware(RezimRabotyAdmina(Bot))
 # клавы из файла классов
 from klaviatury import klava_poisk1, klava_poisk2, klava_kolorit, klava_posobiy, klava_material, klava_bahroma,klava_symboly
 from klaviatury import klava_admina_uroki, klava_admina_platki, klava_admina_glav,klava_admina_materialy, klava_privetstvije
-from klaviatury import klava_symboly2
+from klaviatury import klava_symboly2, klava_banda
 from fsm_states import Otzyv, Vvod_TradNosh
 from templates import platok_predstav
 # костыль для получения id фото в системе тг
@@ -390,6 +390,27 @@ async def zapis_otzyva3(message: types.Message, state: FSMContext):
         await session.close()
         await state.clear()
 # логика основных команд по ключевым словам
+@dp.message((F.text.lower() == "участники платочной банды"))
+async def platochnaja_banda(message: types.Message):
+    await message.answer(text="Сегмент досье об платочниках и шалелюбушках", reply_markup=klava_banda)
+@dp.message((F.text.lower() == "ссылки на Youtube платочников/шалелюбушек"))
+async def platochnaja_banda_youtube(message: types.Message):
+    await message.answer(text="Вот список Ютуб-аккаунтов платочников и шалелюбушек", reply_markup=ReplyKeyboardRemove)
+    connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), user=os.getenv("DBUSERNAME"),
+                            password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
+    # создание интерфейса для sql запроса
+    cursor = connection.cursor()
+    zapros = "SELECT Гражданское_Имя, Творческий_Псевдоним, Ссылка_На_Ютуб FROM Платочная_Банда;"
+    # отправить запрос системе управления
+    cursor.execute(zapros)
+    while True:
+        next_row = cursor.fetchone()
+        if next_row:
+            await message.answer(text=f"{next_row}")
+        else:
+            break
+    cursor.close()
+    connection.close()
 @dp.message((F.text.lower() == "значение символов на платке"))
 async def otrisovka_symbola1(message: types.Message):
     await message.answer(text="Выбран сегмент символов на платке", reply_markup=klava_symboly)
