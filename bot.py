@@ -393,7 +393,7 @@ async def zapis_otzyva3(message: types.Message, state: FSMContext):
 @dp.message((F.text.lower() == "участники платочной банды"))
 async def platochnaja_banda(message: types.Message):
     await message.answer(text="Сегмент досье об платочниках и шалелюбушках", reply_markup=klava_banda)
-@dp.message((F.text.lower() == "ссылки на Youtube платочников/шалелюбушек"))
+@dp.message((F.text.lower() == "ссылки на youtube платочников/шалелюбушек"))
 async def platochnaja_banda_youtube(message: types.Message):
     await message.answer(text="Вот список Ютуб-аккаунтов платочников и шалелюбушек", reply_markup=ReplyKeyboardRemove)
     connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), user=os.getenv("DBUSERNAME"),
