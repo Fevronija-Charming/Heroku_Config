@@ -411,6 +411,42 @@ async def platochnaja_banda_youtube(message: types.Message):
             break
     cursor.close()
     connection.close()
+@dp.message((F.text.lower() =="ссылки на vk платочников/шалелюбушек"))
+async def platochnaja_banda_vk(message: types.Message):
+    await message.answer(text="Вот список страничек VK платочников и шалелюбушек", reply_markup=ReplyKeyboardRemove())
+    connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), user=os.getenv("DBUSERNAME"),
+                            password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
+    # создание интерфейса для sql запроса
+    cursor = connection.cursor()
+    zapros = "SELECT Гражданское_Имя, Творческий_Псевдоним, Ссылка_На_ВК FROM Платочная_Банда;"
+    # отправить запрос системе управления
+    cursor.execute(zapros)
+    while True:
+        next_row = cursor.fetchone()
+        if next_row:
+            await message.answer(text=f"{next_row}")
+        else:
+            break
+    cursor.close()
+    connection.close()
+@dp.message((F.text.lower() =="ссылки на instagram платочников/шалелюбушек"))
+async def platochnaja_banda_insta(message: types.Message):
+    await message.answer(text="Вот список страничек VK платочников и шалелюбушек", reply_markup=ReplyKeyboardRemove())
+    connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), user=os.getenv("DBUSERNAME"),
+                            password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
+    # создание интерфейса для sql запроса
+    cursor = connection.cursor()
+    zapros = "SELECT Гражданское_Имя, Творческий_Псевдоним, Ссылка_На_Инстаграм FROM Платочная_Банда;"
+    # отправить запрос системе управления
+    cursor.execute(zapros)
+    while True:
+        next_row = cursor.fetchone()
+        if next_row:
+            await message.answer(text=f"{next_row}")
+        else:
+            break
+    cursor.close()
+    connection.close()
 @dp.message((F.text.lower() == "значение символов на платке"))
 async def otrisovka_symbola1(message: types.Message):
     await message.answer(text="Выбран сегмент символов на платке", reply_markup=klava_symboly)
@@ -438,25 +474,22 @@ async def znachenije_symbola1(message: types.Message):
     connection.close()
 @dp.message(or_f((Command("glav_poisk")),(F.text.lower()=="поиск по техническим харак."),(F.text.lower()=="основной")))
 async def poisk1(message: types.Message):
-    await message.answer(text="Поиск1",reply_markup=klava_poisk1)
+    await message.answer(text="поиск по техническим харак.",reply_markup=klava_poisk1)
     await message.delete()
-    print(Back.GREEN + Fore.BLACK + Style.BRIGHT+"Поиск1")
 @dp.message((F.text.lower()=="/dop_poisk"))
 @dp.message((F.text.lower()=="поиск по худож. харак."))
 @dp.message((F.text.lower()=="художественный поиск"))
 async def poisk1(message: types.Message):
-    await message.answer(text="поиск2",reply_markup=klava_poisk2)
-    print("Поиск2")
+    await message.answer(text="художественный поиск",reply_markup=klava_poisk2)
 @dp.message((F.text.lower()=="/help"))
 @dp.message((F.text.lower()=="помощь"))
 @dp.message((F.text.lower()=="/commands"))
-async def poisk1(message: types.Message):
+async def help(message: types.Message):
     await message.answer(text="памагити")
-    print("Памагити")
 @dp.message((F.text.lower()=="/admin"))
 @dp.message((F.text.lower()=="админ"))
 @dp.message((F.text.lower()=="developer"))
-async def poisk1(message: types.Message):
+async def admin(message: types.Message):
     await message.answer(text="начальник пришёл",reply_markup=klava_admina_glav)
 @dp.message((F.text.lower()=="данные по платкам"))
 @dp.message((F.text.lower()=="/platochna_data"))
@@ -472,9 +505,9 @@ async def platoki_data(message: types.Message):
 @dp.message((F.text.lower()=="/exit"))
 @dp.message((F.text.lower()=="сброс"))
 @dp.message((F.text.lower()=="/quit"))
-async def poisk1(message: types.Message):
+async def vyhod(message: types.Message, state: FSMContext):
     await message.answer(text="выход",reply_markup=klava_privetstvije)
-    print("выход")
+    await state.clear()
 @dp.message((F.text.lower()=="/posobija"))
 @dp.message((F.text.lower()=="материалы"))
 @dp.message((F.text.lower()=="пособия"))
@@ -484,7 +517,6 @@ async def poisk1(message: types.Message):
 @dp.message((F.text.lower()=="о создателе бота"))
 async def poisk1(message: types.Message):
     await message.answer(text="информация о создателе бота")
-    print("информация о создателе бота")
 @dp.message((F.text.lower()=="/start"))
 @dp.message((F.text.lower()=="старт"))
 @dp.message((F.text.lower()=="пуск"))

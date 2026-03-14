@@ -90,5 +90,6 @@ klava_symboly2=ReplyKeyboardMarkup(keyboard=[
 klava_banda=ReplyKeyboardMarkup(keyboard=[
     [KeyboardButton(text="Ссылки на Youtube платочников/шалелюбушек")],
     [KeyboardButton(text="Ссылки на VK платочников/шалелюбушек")],
-    [KeyboardButton(text="Ссылки на Instagram платочников/шалелюбушек")]],
+    [KeyboardButton(text="Ссылки на Instagram платочников/шалелюбушек")],
+    [KeyboardButton(text="выход")]],
     resize_keyboard=True,input_field_placeholder="Какую информацию о платочниках-шалелюбушках хотите получить?")
