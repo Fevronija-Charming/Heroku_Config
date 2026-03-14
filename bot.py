@@ -395,7 +395,7 @@ async def platochnaja_banda(message: types.Message):
     await message.answer(text="Сегмент досье об платочниках и шалелюбушках", reply_markup=klava_banda)
 @dp.message((F.text.lower() == "ссылки на youtube платочников/шалелюбушек"))
 async def platochnaja_banda_youtube(message: types.Message):
-    await message.answer(text="Вот список Ютуб-аккаунтов платочников и шалелюбушек", reply_markup=ReplyKeyboardRemove)
+    await message.answer(text="Вот список Ютуб-аккаунтов платочников и шалелюбушек", reply_markup=ReplyKeyboardRemove())
     connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), user=os.getenv("DBUSERNAME"),
                             password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
     # создание интерфейса для sql запроса
