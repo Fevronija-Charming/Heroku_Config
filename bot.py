@@ -521,7 +521,7 @@ async def poisk1(message: types.Message):
 @dp.message((F.text.lower()=="старт"))
 @dp.message((F.text.lower()=="пуск"))
 async def start_command(message: types.Message):
-    await message.answer(text="Наливай,поехали!!!")
+    await message.answer(text="Наливай,поехали!!!",reply_markup=klava_privetstvije)
     print("Uiiiiiiiiiiiiiiiiiiiii")
 @dp.message((F.text.lower()=="/stop"))
 @dp.message((F.text.lower()=="авария"))
