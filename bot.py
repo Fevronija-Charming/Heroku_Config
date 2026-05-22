@@ -1399,7 +1399,10 @@ async def kostily_BD(bot:Bot):
         if connection:
             connection.close()
 async def on_startup(bot:Bot):
+    tochnoje_vremja = str(datetime.now())
+    segodnja = tochnoje_vremja[:-14]
     await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="Готова, мой Господин!",reply_markup=klava_privetstvije)
+    await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=segodnja)
     await bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=os.getenv('AVATARPHOTOID'))
     #await kostily_BD(Bot)
     await create_platky()
