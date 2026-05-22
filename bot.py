@@ -1411,15 +1411,16 @@ import time
 import calendar
 async def dni_hudozhniki():
     tochnoje_vremja = str(datetime.now())
-    await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=tochnoje_vremja)
-    segodnja = "25.05"
+    segodnja=tochnoje_vremja[:-14]
+    await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=segodnja)
+    segodnja ="25.05"
     for hudozhik in Hudozhniki:
         if segodnja == hudozhik[2]:
-            await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="Божией помощи!")
-            await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=hudozhik[0])
+            await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="СЕГОДНЯ ДЕНЬ РОЖДЕНИЯ")
+            await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=f"{hudozhik[0]}{" "}{hudozhik[1]}")
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
-scheduler.add_job(dni_hudozhniki, 'cron', hour=23, minute=35, timezone='Europe/Kiev')
+scheduler.add_job(dni_hudozhniki, 'cron', hour=23, minute=42, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
