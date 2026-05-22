@@ -1409,7 +1409,7 @@ async def dni_hudozhniki():
     await Bot.send_message(chat_id=os.getenv('MYUSERID'),text='Божией помощи!')
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
-scheduler.add_job(dni_hudozhniki, 'cron', hour=23, minute=00, timezone='Europe/Kiev')
+scheduler.add_job(dni_hudozhniki, 'cron', hour=11, minute=15, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
