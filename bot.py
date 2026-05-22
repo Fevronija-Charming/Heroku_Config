@@ -351,9 +351,9 @@ async def proverka_tradicii(message: types.Message):
                 await session.commit()
                 await message.answer(text="DB OK")
             except:
-                await emssage.answer(text="DB ERROR)")
+                await message.answer(text="DB ERROR)")
         except:
-            await emssage.answer(text="DATA ERROR)")
+            await message.answer(text="DATA ERROR)")
     else:
         await message.answer(text="Нечего проверять, сначала введите запись в буфер")
 # логика основных команд по ключевым словам
@@ -1404,6 +1404,12 @@ async def on_startup(bot:Bot):
     #await kostily_BD(Bot)
     await create_platky()
 #БЕЗ ЗАЙЦА
+#КРОНА РАЗ В СУТКИ В 8.00 РАССКАЗЫВАЕТ ДНЯХ РОЖДЕНИЯ/ДНЯХ ПАМЯТИ ХУДОЖНИКАХ ЗА ЭТОТ ДЕНЬ
+async def dni_hudozhniki():
+    await Bot.send_message(chat_id=os.getenv('MYUSERID'),text='Божией помощи!')
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+scheduler = AsyncIOScheduler()
+scheduler.add_job(dni_hudozhniki, 'cron', hour=22, minute=00, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
