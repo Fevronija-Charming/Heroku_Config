@@ -1399,25 +1399,24 @@ async def kostily_BD(bot:Bot):
         if connection:
             connection.close()
 async def on_startup(bot:Bot):
-    tochnoje_vremja = str(datetime.now())
-    segodnja = tochnoje_vremja[:-14]
     await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="Готова, мой Господин!",reply_markup=klava_privetstvije)
-    await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=segodnja)
     await bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=os.getenv('AVATARPHOTOID'))
     #await kostily_BD(Bot)
     await create_platky()
 #БЕЗ ЗАЙЦА
 #КРОНА РАЗ В СУТКИ В 8.00 РАССКАЗЫВАЕТ ДНЯХ РОЖДЕНИЯ/ДНЯХ ПАМЯТИ ХУДОЖНИКАХ ЗА ЭТОТ ДЕНЬ
 from templates import Hudozhniki
+import datetime
 async def dni_hudozhniki():
     tochnoje_vremja = str(datetime.now())
     segodnja = tochnoje_vremja[:-14]
     for hudozhik in Hudozhniki:
         continue
     await Bot.send_message(chat_id=os.getenv('MYUSERID'),text="Божией помощи!")
+    await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=segodnja)
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
-scheduler.add_job(dni_hudozhniki, 'cron', hour=23, minute=20, timezone='Europe/Kiev')
+scheduler.add_job(dni_hudozhniki, 'cron', hour=23, minute=27, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
@@ -1426,7 +1425,9 @@ scheduler.add_job(dni_hudozhniki, 'cron', hour=23, minute=20, timezone='Europe/K
         #await Bot.set_my_commands(commands=private, scope=types.BotCommandScopeAllPrivateChats())
         #await Bot.delete_webhook(drop_pending_updates=True)
         #await dp.start_polling(Bot)
-async def main():    
+async def main():
+        #старт хроник раз в сутки
+        scheduler.start()
         init(autoreset=True)
         dp.startup.register(on_startup)
         await Bot.set_my_commands(commands=private, scope=types.BotCommandScopeAllPrivateChats())
