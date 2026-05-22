@@ -1405,11 +1405,16 @@ async def on_startup(bot:Bot):
     await create_platky()
 #БЕЗ ЗАЙЦА
 #КРОНА РАЗ В СУТКИ В 8.00 РАССКАЗЫВАЕТ ДНЯХ РОЖДЕНИЯ/ДНЯХ ПАМЯТИ ХУДОЖНИКАХ ЗА ЭТОТ ДЕНЬ
+from templates import Hudozhniki
 async def dni_hudozhniki():
-    await Bot.send_message(chat_id=os.getenv('MYUSERID'),text='Божией помощи!')
+    tochnoje_vremja = str(datetime.now())
+    segodnja = tochnoje_vremja[:-14]
+    for hudozhik in Hudozhniki:
+        continue
+    await Bot.send_message(chat_id=os.getenv('MYUSERID'),text="Божией помощи!")
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
-scheduler.add_job(dni_hudozhniki, 'cron', hour=11, minute=15, timezone='Europe/Kiev')
+scheduler.add_job(dni_hudozhniki, 'cron', hour=23, minute=20, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
