@@ -1421,24 +1421,24 @@ async def dni_hudozhniki():
             if hudozhik[6] == "Отсутствует":
                 continue
             else:
-                await bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhik[6])
+                await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhik[6])
             if hudozhik[7] == "Отсутствует":
                 continue
             else:
-                await bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhik[7])
+                await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhik[7])
         elif segodnja == hudozhik[4]:
             await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="СЕГОДНЯ ДЕНЬ ПАМЯТИ")
             await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=f"{hudozhik[0]}{" "}{hudozhik[1]}")
             if hudozhik[6]!="Отсутствует":
-                await bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhik[6])
+                await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhik[6])
             if hudozhik[7]!="Отсутствует":
-                await bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhik[7])
+                await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhik[7])
         else:
             continue
     await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="БОЖИЕЙ ПОМОЩИ НА ДЕНЬ")
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
-scheduler.add_job(dni_hudozhniki, 'cron', hour=1, minute=11, timezone='Europe/Kiev')
+scheduler.add_job(dni_hudozhniki, 'cron', hour=1, minute=20, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
