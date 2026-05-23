@@ -3,8 +3,8 @@ platok_predstav=["id:","Название платка:","Автор платка
                  "Узор углов:","Узор края:", "Соотношение цветов и узора:", "Нарисованный цветок 1:",
                  "Нарисованный цветок 2:","Нарисованный цветок 3:","Нарисованный цветок 4:","Нарисованный цветок 5:",
                  "Размер платка:","Материал платка:", "Материал бахромы:"]
-Hudozhniki=[["Надежда","Слащева","05-25","1936","04-17","2011","AgACAgQAAxkBAAIr5moRdVuv-UDu0NYjyl0St2JezLWhAAKSDmsbXvSIUBpsWzHS1WjzAQADAgADeAADOwQ",
-"AgACAgQAAxkBAAIr6moRdavwPNHDX-3NQLkM356uMX0NAAKTDmsbXvSIUPEnoYJk_PvXAQADAgADeQADOwQ"],
+Hudozhniki=[["Надежда","Слащева","05-25","1936","04-17","2011","AgACAgQAAxkBAAIr6moRdavwPNHDX-3NQLkM356uMX0NAAKTDmsbXvSIUPEnoYJk_PvXAQADAgADeQADOwQ",
+"AgACAgQAAxkBAAIr5moRdVuv-UDu0NYjyl0St2JezLWhAAKSDmsbXvSIUBpsWzHS1WjzAQADAgADeAADOwQ"],
 ["Галина","Сотскова","05-18","1949","Отсутствует","Отсутствует","Отсутствует","Отсутствует"],
 ["Степан","Постигов","Отсутствует","Отсутствует","Отсутствует","Отсутствует","Отсутствует","Отсутствует"],
 ["Валентина","Созинова","04-21","Отсутствует","Отсутствует","Отсутствует","Отсутствует","Отсутствует"],
