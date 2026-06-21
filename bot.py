@@ -1413,7 +1413,7 @@ async def planovaja_publicacija():
     den=str(datetime.now().day)
     chasy=str(datetime.now().hour)
     minuty=str(datetime.now().minute)
-    data_tekuch=god+"-"+mecjac+"-"+den+"T"+chasy+":"+minuty
+    data_tekuch=god+"-"+mesjac+"-"+den+"T"+chasy+":"+minuty
     
     # создание интерфейса для sql запроса
     cursor = connection.cursor()
@@ -1462,7 +1462,7 @@ async def dni_hudozhniki():
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
 scheduler.add_job(dni_hudozhniki, 'cron', hour=1, minute=20, timezone='Europe/Kiev')
-scheduler.add_job(planovaja_publicacija, 'cron', hour=22, minute=25, timezone='Europe/Kiev')
+scheduler.add_job(planovaja_publicacija, 'cron', hour=22, minute=30, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
