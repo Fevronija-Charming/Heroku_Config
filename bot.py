@@ -16,7 +16,7 @@ from aiogram.fsm.context import FSMContext
 import psycopg2 as ps
 import datetime, time
 from colorama import *
-from faststream.rabbit import RabbitBroker 
+from faststream.rabbit import RabbitBroker
 # конфигурация команд в меню привествия
 from aiogram.types import BotCommand
 private=[BotCommand(command="dop_poisk",description="утончённый поиск по композиции орнамента ППП"),
@@ -1403,7 +1403,30 @@ async def on_startup(bot:Bot):
     await bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=os.getenv('AVATARPHOTOID'))
     #await kostily_BD(Bot)
     await create_platky()
-#БЕЗ ЗАЙЦА
+#КРОНА ДЕЛАЕТ ПЛАНОВУЮ ПУБЛИКАЦИЮ
+async def planovaja_publicacija():
+    import psycopg2 as ps
+    connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), user=os.getenv("DBUSERNAME"),
+                            password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
+    god=datetime.datetime.now().year
+    mesjac=datetime.datetime.now().month
+    den=datetime.datetime.now().day
+    chasy=datetime.datetime.now().hour
+    minuty=datetime.datetime.now().minute
+    data_tekuch=god+"-"+mecjac+"-"+den+"T"+chasy+":"+minuty
+    
+    # создание интерфейса для sql запроса
+    cursor = connection.cursor()
+    zapros = "SELECT * FROM Публикации WHERE Дата_время_публикации = %s ORDER BY ID ASC;"
+    # отправить запрос системе управления
+    cursor.execute(zapros, (data_tekuch,))
+    row = cursor.fetchone()
+    if row:
+        await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="ВНИМАНИЕ ПУБЛИКАЦИЯ")
+    else:
+        pass
+    cursor.close()
+    connection.close()
 #КРОНА РАЗ В СУТКИ В 8.00 РАССКАЗЫВАЕТ ДНЯХ РОЖДЕНИЯ/ДНЯХ ПАМЯТИ ХУДОЖНИКАХ ЗА ЭТОТ ДЕНЬ
 from templates import Hudozhniki
 from datetime import datetime, date, timedelta
@@ -1439,6 +1462,7 @@ async def dni_hudozhniki():
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
 scheduler.add_job(dni_hudozhniki, 'cron', hour=1, minute=20, timezone='Europe/Kiev')
+scheduler.add_job(planovaja_publicacija, 'cron', hour=10, minute=00, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
