@@ -1408,11 +1408,11 @@ async def planovaja_publicacija():
     import psycopg2 as ps
     connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), user=os.getenv("DBUSERNAME"),
                             password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
-    god=str(datetime.datetime.now().year)
-    mesjac=str(datetime.datetime.now().month)
-    den=str(datetime.datetime.now().day)
-    chasy=str(datetime.datetime.now().hour)
-    minuty=str(datetime.datetime.now().minute)
+    god=str(datetime.date.now().year)
+    mesjac=str(datetime.date.now().month)
+    den=str(datetime.date.now().day)
+    chasy=str(datetime.date.now().hour)
+    minuty=str(datetime.date.now().minute)
     data_tekuch=god+"-"+mecjac+"-"+den+"T"+chasy+":"+minuty
     
     # создание интерфейса для sql запроса
@@ -1462,7 +1462,7 @@ async def dni_hudozhniki():
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
 scheduler.add_job(dni_hudozhniki, 'cron', hour=1, minute=20, timezone='Europe/Kiev')
-scheduler.add_job(planovaja_publicacija, 'cron', hour=22, minute=00, timezone='Europe/Kiev')
+scheduler.add_job(planovaja_publicacija, 'cron', hour=22, minute=15, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
