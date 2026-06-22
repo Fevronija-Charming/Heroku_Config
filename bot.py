@@ -15,8 +15,8 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 import psycopg2 as ps
 import datetime, time
-from zoneinfo import Zoneinfo
-tz = Zoneinfo('Europe/Tallinn')
+from zoneinfo import ZoneInfo
+tz = ZoneInfo('Europe/Tallinn')
 from colorama import *
 from faststream.rabbit import RabbitBroker
 # конфигурация команд в меню привествия
@@ -1483,7 +1483,7 @@ async def dni_hudozhniki():
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
 scheduler.add_job(dni_hudozhniki, 'cron', hour=1, minute=20, timezone='Europe/Kiev')
-scheduler.add_job(planovaja_publicacija, 'cron', hour=14, minute=10, timezone='Europe/Kiev')
+scheduler.add_job(planovaja_publicacija, 'cron', hour=14, minute=15, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
