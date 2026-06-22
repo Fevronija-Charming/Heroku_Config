@@ -1437,17 +1437,18 @@ async def planovaja_publicacija():
     data_tekuch=god+"-"+mesjac+"-"+den+"T"+chasy+":"+minuty
     await Bot.send_message(chat_id=os.getenv('MYUSERID'),text=f"{data_tekuch}")
     # создание интерфейса для sql запроса
-    #cursor = connection.cursor()
-    #zapros = "SELECT * FROM Публикации WHERE Дата_время_публикации = %s ORDER BY ID ASC;"
+    cursor = connection.cursor()
+    zapros = "SELECT * FROM Публикации WHERE Дата_время_публикации = %s ORDER BY ID ASC;"
     # отправить запрос системе управления
-    #cursor.execute(zapros, (data_tekuch,))
-    #row = cursor.fetchone()
-    #if row:
-        #await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="ВНИМАНИЕ ПУБЛИКАЦИЯ")
-    #else:
-        #pass
-    #cursor.close()
-    #connection.close()
+    cursor.execute(zapros, (data_tekuch,))
+    row = cursor.fetchone()
+    if row:
+        await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="ВНИМАНИЕ ПУБЛИКАЦИЯ")
+        await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=f"{row[1]}")
+    else:
+        pass
+    cursor.close()
+    connection.close()
 #КРОНА РАЗ В СУТКИ В 8.00 РАССКАЗЫВАЕТ ДНЯХ РОЖДЕНИЯ/ДНЯХ ПАМЯТИ ХУДОЖНИКАХ ЗА ЭТОТ ДЕНЬ
 from templates import Hudozhniki
 from datetime import datetime, date, timedelta
@@ -1483,7 +1484,7 @@ async def dni_hudozhniki():
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
 scheduler.add_job(dni_hudozhniki, 'cron', hour=1, minute=20, timezone='Europe/Kiev')
-scheduler.add_job(planovaja_publicacija, 'cron', hour=14, minute=15, timezone='Europe/Kiev')
+scheduler.add_job(planovaja_publicacija, 'cron', hour=14, minute=25, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
