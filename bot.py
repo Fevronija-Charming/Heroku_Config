@@ -1470,11 +1470,16 @@ async def planovaja_publicacija():
             pass
         else:
             await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=row[7])
-        # документ
+        # ссылка на сайт
         if row[8] == 'Отсутствует':
             pass
         else:
-            await Bot.send_document(chat_id=os.getenv('MYUSERID'), document=row[8])
+            await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=f"{row[8]}")
+        # ссылка на документ
+        if row[9] == 'Отсутствует':
+            pass
+        else:
+            await Bot.send_document(chat_id=os.getenv('MYUSERID'), document=f"{row[9]}")
     else:
         pass
     cursor.close()
@@ -1514,7 +1519,7 @@ async def dni_hudozhniki():
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
 scheduler.add_job(dni_hudozhniki, 'cron', hour=1, minute=20, timezone='Europe/Kiev')
-scheduler.add_job(planovaja_publicacija, 'cron', hour=14, minute=45, timezone='Europe/Kiev')
+scheduler.add_job(planovaja_publicacija, 'cron', hour=15, minute=00, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
