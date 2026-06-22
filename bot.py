@@ -1435,7 +1435,6 @@ async def planovaja_publicacija():
     chasy=str(datetime.now(tz).hour)
     minuty=str(datetime.now(tz).minute)
     data_tekuch=god+"-"+mesjac+"-"+den+"T"+chasy+":"+minuty
-    await Bot.send_message(chat_id=os.getenv('MYUSERID'),text=f"{data_tekuch}")
     # создание интерфейса для sql запроса
     cursor = connection.cursor()
     zapros = "SELECT * FROM Публикации WHERE Дата_время_публикации = %s ORDER BY ID ASC;"
@@ -1444,7 +1443,38 @@ async def planovaja_publicacija():
     row = cursor.fetchone()
     if row:
         await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="ВНИМАНИЕ ПУБЛИКАЦИЯ")
-        await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=f"{row[1]}")
+        # текст публикации
+        await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=f"{row[2]}")
+        # фото 1
+        if row[3] == 'Отсутствует':
+            pass
+        else:
+            await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=row[3])
+        # фото 2
+        if row[4] == 'Отсутствует':
+            pass
+        else:
+            await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=row[4])
+        # фото 3
+        if row[5] == 'Отсутствует':
+            pass
+        else:
+            await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=row[5])
+        # фото 4
+        if row[6] == 'Отсутствует':
+            pass
+        else:
+            await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=row[6])
+        # фото 5
+        if row[7] == 'Отсутствует':
+            pass
+        else:
+            await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=row[7])
+        # документ
+        if row[8] == 'Отсутствует':
+            pass
+        else:
+            await Bot.send_document(chat_id=os.getenv('MYUSERID'), document=row[8])
     else:
         pass
     cursor.close()
@@ -1484,7 +1514,7 @@ async def dni_hudozhniki():
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
 scheduler.add_job(dni_hudozhniki, 'cron', hour=1, minute=20, timezone='Europe/Kiev')
-scheduler.add_job(planovaja_publicacija, 'cron', hour=14, minute=25, timezone='Europe/Kiev')
+scheduler.add_job(planovaja_publicacija, 'cron', hour=14, minute=45, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
