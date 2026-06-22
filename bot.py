@@ -1533,7 +1533,7 @@ async def dni_hudozhniki():
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
 scheduler.add_job(dni_hudozhniki, 'cron', hour=1, minute=20, timezone='Europe/Kiev')
-scheduler.add_job(planovaja_publicacija, 'cron', hour=15, minute=25, timezone='Europe/Kiev')
+scheduler.add_job(planovaja_publicacija, 'cron', hour=15, minute=40, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
