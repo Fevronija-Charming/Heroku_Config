@@ -15,6 +15,8 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 import psycopg2 as ps
 import datetime, time
+from zoneinfo import Zoneinfo
+tz = Zoneinfo('Europe/Pacific')
 from colorama import *
 from faststream.rabbit import RabbitBroker
 # конфигурация команд в меню привествия
@@ -1427,11 +1429,11 @@ async def planovaja_publicacija():
     import psycopg2 as ps
     connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), user=os.getenv("DBUSERNAME"),
                             password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
-    god=str(datetime.now().year)
-    mesjac=str(datetime.now().month)
-    den=str(datetime.now().day)
-    chasy=str(datetime.now().hour)
-    minuty=str(datetime.now().minute)
+    god=str(datetime.now(tz).year)
+    mesjac=str(datetime.now(tz).month)
+    den=str(datetime.now(tz).day)
+    chasy=str(datetime.now(tz).hour)
+    minuty=str(datetime.now(tz).minute)
     data_tekuch=god+"-"+mesjac+"-"+den+"T"+chasy+":"+minuty
     await Bot.send_message(chat_id=os.getenv('MYUSERID'),text=f"{data_tekuch}")
     # создание интерфейса для sql запроса
@@ -1481,7 +1483,7 @@ async def dni_hudozhniki():
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
 scheduler.add_job(dni_hudozhniki, 'cron', hour=1, minute=20, timezone='Europe/Kiev')
-scheduler.add_job(planovaja_publicacija, 'cron', hour=13, minute=55, timezone='Europe/Kiev')
+scheduler.add_job(planovaja_publicacija, 'cron', hour=14, minute=05, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
