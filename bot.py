@@ -390,6 +390,25 @@ async def zapis_otzyva3(message: types.Message, state: FSMContext):
         await session.close()
         await state.clear()
 # логика основных команд по ключевым словам
+@dp.message((F.text.lower() == "публикации"))
+async def proverka_publikacii(message: types.Message):
+    await message.answer(text="Проверка публикации")
+    import psycopg2 as ps
+    connection = ps.connect(host=os.getenv("DBHOST"), database=os.getenv("DBNAMEOLD"), user=os.getenv("DBUSERNAME"),
+    password=os.getenv("DBPASSWORD"), port=os.getenv("DBPORT"))
+    # создание интерфейса для sql запроса
+    cursor = connection.cursor()
+    zapros = "SELECT * FROM Публикации ORDER BY ID ASC;"
+    # отправить запрос системе управления
+    cursor.execute(zapros)
+    while True:
+        next_row = cursor.fetchone()
+        if next_row:
+            await message.answer(text=f"{next_row}")
+        else:
+            break
+    cursor.close()
+    connection.close()
 @dp.message((F.text.lower() == "участники платочной банды"))
 async def platochnaja_banda(message: types.Message):
     await message.answer(text="Сегмент досье об платочниках и шалелюбушках", reply_markup=klava_banda)
@@ -1414,7 +1433,6 @@ async def planovaja_publicacija():
     chasy=str(datetime.now().hour)
     minuty=str(datetime.now().minute)
     data_tekuch=god+"-"+mesjac+"-"+den+"T"+chasy+":"+minuty
-    
     # создание интерфейса для sql запроса
     cursor = connection.cursor()
     zapros = "SELECT * FROM Публикации WHERE Дата_время_публикации = %s ORDER BY ID ASC;"
