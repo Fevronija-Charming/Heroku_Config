@@ -164,9 +164,9 @@ class Vvod_Dokumenta(StatesGroup):
 async def dokument_id_activacija(message: types.Message, state: FSMContext):
     await message.answer(text="Получение id для документа")
     await state.set_state(Vvod_Dokumenta.get_dokument_id)
-@dp.message(Vvod_Dokumenta.get_dokument_id, F.dokument)
+@dp.message(Vvod_Dokumenta.get_dokument_id, F.document)
 async def DokumSsylka(message: types.Message, state: FSMContext):
-    await state.update_data(DokumentID=message.document[-1].file_id)
+    await state.update_data(DokumentID=message.document.file_id)
     data=await state.get_data()
     await state.clear()
     await message.answer(text=f"{data}")
@@ -1533,7 +1533,7 @@ async def dni_hudozhniki():
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
 scheduler.add_job(dni_hudozhniki, 'cron', hour=1, minute=20, timezone='Europe/Kiev')
-scheduler.add_job(planovaja_publicacija, 'cron', hour=15, minute=20, timezone='Europe/Kiev')
+scheduler.add_job(planovaja_publicacija, 'cron', hour=15, minute=25, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
