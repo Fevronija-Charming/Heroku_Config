@@ -147,12 +147,26 @@ from templates import platok_predstav
 class Vvod_Foto(StatesGroup):
     get_foto_id=State()
 @dp.message((F.text.lower()=="скормить_фото"))
-async def foto_avatara(message: types.Message, state: FSMContext):
+async def foto_id_activacija(message: types.Message, state: FSMContext):
     await message.answer(text="Получение id для фото")
     await state.set_state(Vvod_Foto.get_foto_id)
 @dp.message(Vvod_Foto.get_foto_id, F.photo)
-async def FotoSsyla(message: types.Message, state: FSMContext):
+async def FotoSsylka(message: types.Message, state: FSMContext):
     await state.update_data(FotoAvatar=message.photo[-1].file_id)
+    data=await state.get_data()
+    await state.clear()
+    await message.answer(text=f"{data}")
+    print(data)
+# костыль для получения id документа в системе тг
+class Vvod_Dokumenta(StatesGroup):
+    get_dokument_id=State()
+@dp.message((F.text.lower()=="скормить_документ"))
+async def dokument_id_activacija(message: types.Message, state: FSMContext):
+    await message.answer(text="Получение id для документа")
+    await state.set_state(Vvod_Dokumenta.get_dokument_id)
+@dp.message(Vvod_Dokumenta.get_dokument_id, F.dokument)
+async def DokumSsylka(message: types.Message, state: FSMContext):
+    await state.update_data(DokumentID=message.document[-1].file_id)
     data=await state.get_data()
     await state.clear()
     await message.answer(text=f"{data}")
@@ -1519,7 +1533,7 @@ async def dni_hudozhniki():
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
 scheduler.add_job(dni_hudozhniki, 'cron', hour=1, minute=20, timezone='Europe/Kiev')
-scheduler.add_job(planovaja_publicacija, 'cron', hour=15, minute=0, timezone='Europe/Kiev')
+scheduler.add_job(planovaja_publicacija, 'cron', hour=15, minute=20, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
         #await broker.start()
