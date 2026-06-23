@@ -1499,27 +1499,70 @@ async def planovaja_publicacija():
     cursor.close()
     connection.close()
 #КРОНА РАЗ В СУТКИ В 8.00 РАССКАЗЫВАЕТ ДНЯХ РОЖДЕНИЯ/ДНЯХ ПАМЯТИ ХУДОЖНИКАХ ЗА ЭТОТ ДЕНЬ
-from templates import Hudozhniki
+from templates import Hudozhniki, Hudozhniky
 from datetime import datetime, date, timedelta
 import time
 import calendar
 async def dni_hudozhniki():
     tochnoje_vremja = str(datetime.now())
     segodnja=tochnoje_vremja[5:-16]
-    await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=segodnja)
-    segodnja='05-25'
-    for hudozhik in Hudozhniki:
-        if segodnja == hudozhik[2]:
-            await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="СЕГОДНЯ ДЕНЬ РОЖДЕНИЯ")
-            await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=f"{hudozhik[0]}{" "}{hudozhik[1]}")
-            if hudozhik[6] == "Отсутствует":
-                continue
+    god = datetime.now().year
+    peremycka=" "
+    for hudozhnik in Hudozhniky:
+        # проверка по дате рождения
+        data_rozhd_hudoz=hudozhnik[2]
+        if segodnja == data_rozhd_hudoz[:-5]:
+            vozrast=god-data_rozhd_hudoz
+            uzory=hudozhnik[7]
+            istochniki=hudozhnik[6]
+            istochn_hudozhniki=istochniki.split(" ")
+            if vozrast % 10 == 0 or vozrast % 10 == 1 or vozrast % 10 == 4 or vozrast % 10 == 5 or vozrast % 10 == 9:
+                hvost = "-ый"
+            elif vozrast % 10 == 2 or vozrast % 10 == 6 or vozrast % 10 == 7 or vozrast % 10 == 9:
+                hvost = "-ой"
             else:
-                await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhik[6])
-            if hudozhik[7] == "Отсутствует":
-                continue
+                pass
+            # пол художника, женский
+            if hudozhnik[10] == "Ж":
+                await Bot.send_message(chat_id=os.getenv('MYUSERID'),
+                text=f"""Сегодня свой {vozrast}{hvost} День рождения отмечает прекрасная художница 
+                Павловопосадской мануфактуры {hudozhnik[0]}{peremycka}{hudozhnik[1]}.Известны узоры кисти
+                данной художницы:""")
+                await Bot.send_message(chat_id=os.getenv('MYUSERID'),text=uzory)
+                await Bot.send_message(chat_id=os.getenv('MYUSERID'),text="Подробнее о биографии и творчестве художника можно почитать здесь:")
+                for istochniki in istochn_hudozhniki:
+                    await Bot.send_message(chat_id=os.getenv('MYUSERID'),text=f"{istochniki}")
+                await Bot.send_message(chat_id=os.getenv('MYUSERID'),text=f"""Присоединятесь к поздравлениям! А какие
+                платки узоров авторства {hudozhnik[9]} есть в коллекции у Вас? Какие из них самые важные для Вас?""")
+                if hudozhik[6] == "Отсутствует":
+                    continue
+                else:
+                    await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhik[6])
+                if hudozhik[7] == "Отсутствует":
+                    continue
+                else:
+                    await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhik[7])
+            # пол художника, мужской
             else:
-                await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhik[7])
+                await Bot.send_message(chat_id=os.getenv('MYUSERID'),
+                                       text=f"""Сегодня свой {vozrast}{hvost} День рождения отмечает прекрасный художник
+                               Павловопосадской мануфактуры {hudozhnik[0]}{peremycka}{hudozhnik[1]}.Известны узоры кисти
+                               данного художника:""")
+                await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=uzory)
+                await Bot.send_message(chat_id=os.getenv('MYUSERID'),
+                                       text="Подробнее о биографии и творчестве художника можно почитать здесь:")
+                for istochniki in istochn_hudozhniki:
+                    await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=f"{istochniki}")
+                await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=f"""Присоединятесь к поздравлениям! А какие
+                               платки узоров авторства {hudozhnik[9]} есть в коллекции у Вас? Какие из них самые важные для Вас?""")
+                if hudozhik[6] == "Отсутствует":
+                    continue
+                else:
+                    await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhik[6])
+                if hudozhik[7] == "Отсутствует":
+                    continue
+                else:
+                    await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhik[7])
         elif segodnja == hudozhik[4]:
             await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="СЕГОДНЯ ДЕНЬ ПАМЯТИ")
             await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=f"{hudozhik[0]}{" "}{hudozhik[1]}")
@@ -1532,7 +1575,7 @@ async def dni_hudozhniki():
     await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="БОЖИЕЙ ПОМОЩИ НА ДЕНЬ")
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
-scheduler.add_job(dni_hudozhniki, 'cron', hour=1, minute=20, timezone='Europe/Kiev')
+scheduler.add_job(dni_hudozhniki, 'cron', hour=0, minute=5, timezone='Europe/Kiev')
 scheduler.add_job(planovaja_publicacija, 'cron', hour=15, minute=40, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
