@@ -1505,16 +1505,22 @@ import time
 import calendar
 async def dni_hudozhniki():
     god = str(datetime.now(tz).year)
-    mesjac = datetime.now(tz).month
-    den=str(datetime.now(tz).day)
+    mesjac=datetime.now(tz).month
+    den=datetime.now(tz).day
+    if den<10:
+        den=str(den)
+    else:
+        den="0"+str(den)
     if mesjac<10:
         mesjac=str(mesjac)
     else:
         mesjac="0"+str(mesjac)
     segodnja=den+"-"+mesjac
     peremycka=" "
+    print(segodnja)
     for hudozhnik in Hudozhniky:
         data=hudozhnik[2]
+        print(data[:-5])
         # проверка по дате рождения
         data_rozhd_hudoz=hudozhnik[2]
         if hudozhnik[2]!="Отсутствует":
@@ -1610,7 +1616,7 @@ async def dni_hudozhniki():
                     await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhnik[7])
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
-scheduler.add_job(dni_hudozhniki, 'cron', hour=13, minute=00, timezone='Europe/Kiev')
+scheduler.add_job(dni_hudozhniki, 'cron', hour=13, minute=10, timezone='Europe/Kiev')
 scheduler.add_job(planovaja_publicacija, 'cron', hour=12, minute=00, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
