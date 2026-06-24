@@ -1559,13 +1559,9 @@ async def dni_hudozhniki():
                         await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=f"{istochnik}")
                     await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=f"""Присоединятесь к поздравлениям! А какие
                     платки узоров авторства {hudozhnik[9]} есть в коллекции у Вас? Какие из них самые важные для Вас?""")
-                if hudozhnik[6] == "Отсутствует":
-                    continue
-                else:
+                if hudozhnik[4] != "Отсутствует":
                     await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhnik[6])
-                if hudozhnik[7] == "Отсутствует":
-                    continue
-                else:
+                if hudozhnik[5] != "Отсутствует":
                     await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhnik[7])
         # проверка по дню памяти
         if hudozhnik[3] != "Отсутствует":
@@ -1613,7 +1609,7 @@ async def dni_hudozhniki():
                     await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhnik[7])
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
-scheduler.add_job(dni_hudozhniki, 'cron', hour=16, minute=45, timezone='Europe/Kiev')
+scheduler.add_job(dni_hudozhniki, 'cron', hour=18, minute=50, timezone='Europe/Kiev')
 scheduler.add_job(planovaja_publicacija, 'cron', hour=12, minute=00, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
