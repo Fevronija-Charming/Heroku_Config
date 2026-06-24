@@ -1510,6 +1510,8 @@ async def dni_hudozhniki():
     peremycka=" "
     print(segodnja)
     for hudozhnik in Hudozhniky:
+        data=hudozhnik[2]
+        print(data[:-5])
         # проверка по дате рождения
         data_rozhd_hudoz=hudozhnik[2]
         if hudozhnik[2]!="Отсутствует":
