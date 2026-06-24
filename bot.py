@@ -1508,6 +1508,7 @@ async def dni_hudozhniki():
     segodnja=tochnoje_vremja[5:-16]
     god = datetime.now().year
     peremycka=" "
+    print(segodnja)
     for hudozhnik in Hudozhniky:
         # проверка по дате рождения
         data_rozhd_hudoz=hudozhnik[2]
@@ -1515,6 +1516,7 @@ async def dni_hudozhniki():
             try: vozrast=god-int(data_rozhd_hudoz[6:])
             except: vozrast="xx"
             if segodnja == data_rozhd_hudoz[:-5]:
+                await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="БОЖИЕЙ ПОМОЩИ НА ДЕНЬ")
                 uzory=hudozhnik[7]
                 istochniki=hudozhnik[6]
                 istochn_hudozhniki=istochniki.split(" ")
@@ -1603,10 +1605,9 @@ async def dni_hudozhniki():
                     await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhnik[7])
         else:
             continue
-    await Bot.send_message(chat_id=os.getenv('MYUSERID'), text="БОЖИЕЙ ПОМОЩИ НА ДЕНЬ")
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
-scheduler.add_job(dni_hudozhniki, 'cron', hour=12, minute=5, timezone='Europe/Kiev')
+scheduler.add_job(dni_hudozhniki, 'cron', hour=12, minute=15, timezone='Europe/Kiev')
 scheduler.add_job(planovaja_publicacija, 'cron', hour=12, minute=00, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
