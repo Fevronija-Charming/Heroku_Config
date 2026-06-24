@@ -1508,13 +1508,13 @@ async def dni_hudozhniki():
     mesjac=datetime.now(tz).month
     den=datetime.now(tz).day
     if den<10:
+        den = "0" + str(den)
+    else:
         den=str(den)
-    else:
-        den="0"+str(den)
     if mesjac<10:
-        mesjac=str(mesjac)
+        mesjac = "0" + str(mesjac)  
     else:
-        mesjac="0"+str(mesjac)
+        mesjac = str(mesjac)
     segodnja=den+"-"+mesjac
     peremycka=" "
     print(segodnja)
@@ -1616,7 +1616,7 @@ async def dni_hudozhniki():
                     await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhnik[7])
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
-scheduler.add_job(dni_hudozhniki, 'cron', hour=13, minute=10, timezone='Europe/Kiev')
+scheduler.add_job(dni_hudozhniki, 'cron', hour=13, minute=20, timezone='Europe/Kiev')
 scheduler.add_job(planovaja_publicacija, 'cron', hour=12, minute=00, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
