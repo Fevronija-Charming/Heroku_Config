@@ -1607,7 +1607,7 @@ async def dni_hudozhniki():
                     await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhnik[7])
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
-scheduler.add_job(dni_hudozhniki, 'cron', hour=12, minute=20, timezone='Europe/Kiev')
+scheduler.add_job(dni_hudozhniki, 'cron', hour=12, minute=30, timezone='Europe/Kiev')
 scheduler.add_job(planovaja_publicacija, 'cron', hour=12, minute=00, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
