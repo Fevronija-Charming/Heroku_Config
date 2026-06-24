@@ -361,10 +361,10 @@ hudozhnik_19=["Валерия","Фадеева","17-04-1975","Отсутству
 hudozhnik_20=["Ирина","Дадонова","01-05-1939","Отсутствует",foto_hudozhnika_vnutr200,foto_hudozhnika_vnutr201,ssylka_forum_20,uzor_hudozhnika20,20,"Ирины Дадоновой","Ж"]
 hudozhnik_21=["Виктор","Зубрицкий","24-09-1946","08-07-2023",foto_hudozhnika_vnutr210,foto_hudozhnika_vnutr211,ssylka_forum_21,uzor_hudozhnika21,21,"Виктора Зубрицкого","М"]
 hudozhnik_22=["Екатерина","Регунова","19-05-1926","11-06-2009",foto_hudozhnika_vnutr220,foto_hudozhnika_vnutr221,ssylka_forum_22,uzor_hudozhnika22,22,"Екатерины Регуновой","Ж"]
-hudozhnik_23=["Елена","Литвинова","18-07-1969","Отсутствует",foto_hudozhnika_vnutr230,foto_hudozhnika_vnutr231,ssylka_forum_23,uzor_hudozhnika23,23,"Елены Литвиновой","Ж"]
-hudozhnik_24=["Наталья","Белокур","13-06-1969","Отсутствует",foto_hudozhnika_vnutr240,foto_hudozhnika_vnutr241,ssylka_forum_24,uzor_hudozhnika24,24,"Натальи Белокур","Ж"]
-hudozhnik_25=["Клара","Зиновьева","24-06-1928","xx-03-2010",foto_hudozhnika_vnutr250,foto_hudozhnika_vnutr251,ssylka_forum_25,uzor_hudozhnika25,25,"Клары Зиновьевой","Ж"]
-hudozhnik_26=["Семён","Рыжов","16-04-1916","27-06-1994",foto_hudozhnika_vnutr260,foto_hudozhnika_vnutr261,ssylka_forum_26,uzor_hudozhnika26,26,"Семёна Рыжова","М"]
+hudozhnik_23=["Елена","Литвинова","18-07-1969","Отсутствует",foto_hudozhniki_telegr230,foto_hudozhnika_vnutr231,ssylka_forum_23,uzor_hudozhnika23,23,"Елены Литвиновой","Ж"]
+hudozhnik_24=["Наталья","Белокур","13-06-1969","Отсутствует",foto_hudozhniki_telegr240,foto_hudozhniki_telegr241,ssylka_forum_24,uzor_hudozhnika24,24,"Натальи Белокур","Ж"]
+hudozhnik_25=["Клара","Зиновьева","24-06-1928","xx-03-2010",foto_hudozhniki_telegr250,foto_hudozhniki_telegr251,ssylka_forum_25,uzor_hudozhnika25,25,"Клары Зиновьевой","Ж"]
+hudozhnik_26=["Семён","Рыжов","16-04-1916","27-06-1994",foto_hudozhniki_telegr260,foto_hudozhniki_telegr261,ssylka_forum_26,uzor_hudozhnika26,26,"Семёна Рыжова","М"]
 #сборка сущностей художников в список
 Hudozhniky=[hudozhnik_0,hudozhnik_1,hudozhnik_2,hudozhnik_3,hudozhnik_4,hudozhnik_5,hudozhnik_6,hudozhnik_7,hudozhnik_8,
             hudozhnik_9,hudozhnik_10,hudozhnik_11,hudozhnik_12,hudozhnik_13,hudozhnik_14,hudozhnik_15,hudozhnik_16,hudozhnik_17,
