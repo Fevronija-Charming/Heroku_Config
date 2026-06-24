@@ -1560,9 +1560,9 @@ async def dni_hudozhniki():
                     await Bot.send_message(chat_id=os.getenv('MYUSERID'), text=f"""Присоединятесь к поздравлениям! А какие
                     платки узоров авторства {hudozhnik[9]} есть в коллекции у Вас? Какие из них самые важные для Вас?""")
                 if hudozhnik[4] != "Отсутствует":
-                    await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhnik[6])
+                    await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhnik[4])
                 if hudozhnik[5] != "Отсутствует":
-                    await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhnik[7])
+                    await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhnik[5])
         # проверка по дню памяти
         if hudozhnik[3] != "Отсутствует":
             data_pamjat=hudozhnik[3]
