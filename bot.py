@@ -1533,7 +1533,7 @@ async def dni_hudozhniki():
                 istochn_hudozhniki=istochniki.split(" ")
                 if vozrast % 10 == 0 or vozrast % 10 == 1 or vozrast % 10 == 4 or vozrast % 10 == 5 or vozrast % 10 == 9:
                     vozrast=str(vozrast)+"-ый"
-                elif vozrast % 10 == 2 or vozrast % 10 == 6 or vozrast % 10 == 7 or vozrast % 10 == 9:
+                elif vozrast % 10 == 2 or vozrast % 10 == 6 or vozrast % 10 == 7 or vozrast % 10 == 8:
                     vozrast=str(vozrast)+"-ой"
                 else:
                     pass
@@ -1613,7 +1613,7 @@ async def dni_hudozhniki():
                     await Bot.send_photo(chat_id=os.getenv('MYUSERID'), photo=hudozhnik[7])
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 scheduler = AsyncIOScheduler()
-scheduler.add_job(dni_hudozhniki, 'cron', hour=14, minute=35, timezone='Europe/Kiev')
+scheduler.add_job(dni_hudozhniki, 'cron', hour=14, minute=40, timezone='Europe/Kiev')
 scheduler.add_job(planovaja_publicacija, 'cron', hour=12, minute=00, timezone='Europe/Kiev')
 #async def main():
     #async with broker:
